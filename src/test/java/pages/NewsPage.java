@@ -21,7 +21,7 @@ public class NewsPage extends BasePage {
     @FindBy(id = "orb-search-q")
     private WebElement searchField;
 
-    @FindBy(xpath = "//nav[@role='navigation']/ul/li[3]/a[contains(@href, 'coronavirus')]")
+    @FindBy(xpath = "//nav[@role='navigation']//li[3]/a/span[contains(text(), 'Coronavirus')]")
     private WebElement coronavirusTab;
 
     private By popupAuthorizationLocator = By.cssSelector("div.sign_in-container");

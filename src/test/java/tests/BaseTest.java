@@ -6,12 +6,14 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import pages.*;
+import steps.HomeSteps;
 import utils.DriverFactory;
 import utils.PropertyReader;
 
 public abstract class BaseTest {
 
     private static WebDriver driver;
+    HomeSteps steps;
 
     public static WebDriver getDriver() {
         return driver;
@@ -21,6 +23,7 @@ public abstract class BaseTest {
     public void setUp() {
         driver = DriverFactory.getDriver(PropertyReader.getBrowser());
         driver.get(PropertyReader.getUrl());
+        steps = new HomeSteps();
     }
 
     @AfterClass
