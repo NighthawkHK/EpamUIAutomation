@@ -1,5 +1,8 @@
 package utils;
 
 public enum Browser {
-    CHROME
+    CHROME,
+    MOZILLA,
+    OPERA,
+    EDGE
 }
