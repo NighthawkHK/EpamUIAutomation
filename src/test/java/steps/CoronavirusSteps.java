@@ -4,7 +4,7 @@ import pages.CoronavirusPage;
 
 public class CoronavirusSteps {
 
-    private CoronavirusPage coronavirusPage = new CoronavirusPage();
+    private final CoronavirusPage coronavirusPage = new CoronavirusPage();
 
     public ShareNewsSteps navigateToNewsSharePage() {
         coronavirusPage.clickOnCoronavirusStoriesTab();

@@ -4,7 +4,7 @@ import pages.NewsPage;
 
 public class NewsSteps {
 
-    private NewsPage newsPage = new NewsPage();
+    private final NewsPage newsPage = new NewsPage();
 
     public NewsSteps closeAuthorizationPopup() {
         newsPage.closeAuthorizationPopup();

@@ -4,7 +4,7 @@ import pages.ShareNewsPage;
 
 public class ShareNewsSteps {
 
-    private ShareNewsPage shareNewsPage = new ShareNewsPage();
+    private final ShareNewsPage shareNewsPage = new ShareNewsPage();
 
     public ShareNewsSteps shareTheNews(String text, String name, String email, String phoneNumber, boolean isAdult, boolean acceptTerms) {
         shareNewsPage.fillTheRegistrationForm(text, name, email, phoneNumber, isAdult, acceptTerms);
@@ -12,8 +12,7 @@ public class ShareNewsSteps {
         return this;
     }
 
-    public ShareNewsSteps verifyThatTheNewsWasNotSent() {
+    public void verifyThatTheNewsWasNotSent() {
         shareNewsPage.assertThatSubmissionDidNotWork();
-        return this;
     }
 }

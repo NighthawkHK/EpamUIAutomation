@@ -4,7 +4,7 @@ import pages.HomePage;
 
 public class HomeSteps {
 
-    private HomePage homePage = new HomePage();
+    private final HomePage homePage = new HomePage();
 
     public NewsSteps navigateToNewsPage() {
         homePage.goToNewsPage();
