@@ -2,7 +2,6 @@ package pages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
 
 public class ShareNewsPage extends BasePage {
 
@@ -27,31 +26,41 @@ public class ShareNewsPage extends BasePage {
     @FindBy(xpath = "//div[@class='embed-content-container']/div[8]/button")
     private WebElement submitButton;
 
-    public void fillTheRegistrationForm(String text, String name, String email, String phoneNumber, boolean isAdult, boolean acceptTerms) {
-        textareaField.click();
-        textareaField.sendKeys(text);
+    public void typeQuestion(String question) {
+        textareaField.clear();
+        textareaField.sendKeys(question);
+    }
 
-        nameField.click();
+    public void typeName(String name) {
+        nameField.clear();
         nameField.sendKeys(name);
+    }
 
-        emailField.click();
+    public void typeEmail(String email) {
+        emailField.clear();
         emailField.sendKeys(email);
+    }
 
+    public void typeContactNumber(String contactNumber) {
         contactNumberField.click();
-        contactNumberField.sendKeys(phoneNumber);
+        contactNumberField.sendKeys(contactNumber);
+    }
 
+    public void isAdultConfirmation(boolean isAdult) {
         if (isAdult)
             isAdultCheckbox.click();
+    }
 
+    public void acceptTermsConfirmation(boolean acceptTerms) {
         if (acceptTerms)
             acceptTheTermsCheckbox.click();
     }
 
-    public void submitTheRegistrationForm() {
+    public void clickSubmitFormButton() {
         submitButton.click();
     }
 
-    public void assertThatSubmissionDidNotWork() {
-        Assert.assertTrue(submitButton.isDisplayed(), "Submission did not work.");
+    public boolean submitButtonIsDisplayed() {
+        return submitButton.isDisplayed();
     }
 }

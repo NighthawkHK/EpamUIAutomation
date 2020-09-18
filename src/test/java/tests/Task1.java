@@ -2,25 +2,46 @@ package tests;
 
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class Task1 extends BaseTest {
 
-    @Test(dataProvider = "expectedHeadlineArticle")
-    public void checkTheNameOfHeadlineArticle(String expectedName) {
-        getHomePage().goToNewsPage();
-        getNewsPage().assertThatMainNewsTitleContainsExpectedText(expectedName);
-    }
+    private final String EXPECTED_NAME_OF_HEADLINE_ARTICLE
+            = "New fear grips Europe as Covid tops 30m worldwide";
 
-    @Test(dataProvider = "expectedSecondaryArticleTitle")
-    public void checkTheSummaryOfSecondaryArticle(String expectedSummary) {
+    private final List<String> EXPECTED_TITLES_OF_TIMELINE_LIST = Arrays.asList(
+            "Israel goes into second lockdown as new year begins",
+            "One more Covid death in Wales and 185 new cases",
+            "'Don't have one more night out', warn leaders in North West"
+    );
+
+    @Test
+    public void verifyThatNameOfHeadlineArticleEqualsToExpected() {
         getHomePage().goToNewsPage();
-        getNewsPage().assertThatSecondaryNewsSummaryContainsExpectedText(expectedSummary);
+        
+        assertThat(getNewsPage().getTitleOfHeadlineArticle())
+                .as("Actual and expected titles are different.")
+                .isEqualTo(EXPECTED_NAME_OF_HEADLINE_ARTICLE);
     }
 
     @Test
-    public void checkTheNameOfTheFirstArticleAgainstSpecifiedValue() {
+    public void verifyThatSecondaryArticleTitlesOfHeadlineListAreEqualToExpected() {
         getHomePage().goToNewsPage();
-        String text = getNewsPage().getCategoryLinkTextOfMainNews();
-        getNewsPage().executeSearchByKeyword(text);
-        getSearchResultPage().assertThatFirstArticleHeadlineContainsSpecifiedValue(text);
+        assertThat(getNewsPage().getAllTitlesFromTimelineList().equals(EXPECTED_TITLES_OF_TIMELINE_LIST))
+                .as("One or more actual title does not match the expected.")
+                .isTrue();
+    }
+
+    @Test
+    public void verifyThatNameOfTheFirstArticleContainsValue() {
+        getHomePage().goToNewsPage();
+        String textOfCategoryLinkOfMainNews = getNewsPage().getTextOfCategoryLinkOfMainNews();
+        getNewsPage().executeSearchByKeyword(textOfCategoryLinkOfMainNews);
+        assertThat(getSearchResultPage().getFirstArticleHeadline())
+                .as("First article does not contain specified value.")
+                .contains(textOfCategoryLinkOfMainNews);
     }
 }

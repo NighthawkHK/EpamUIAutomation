@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class CoronavirusPage extends BasePage {
 
-    @FindBy(xpath = "//ul[contains(@class, 'secondary-sections')]/li[2]/a")
+    @FindBy(xpath = "//nav[@aria-label='Coronavirus pandemic']//a[contains(@href, 'have_your_say')]")
     private WebElement coronavirusStoriesTab;
 
     @FindBy(xpath = "//h3[text()='How to share with BBC News']/ancestor::a")
