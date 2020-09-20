@@ -38,14 +38,14 @@ public class NewsPage extends BasePage {
     private final By popupCloseButtonLocator = By.cssSelector("button.sign_in-exit");
     private static boolean firstLoad = true;
 
-    public void closeAuthorizationPopup() {
+    public NewsPage closeAuthorizationPopup() {
         if (firstLoad)
         {
             wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(popupCloseButtonLocator)));
             driver.findElement(popupCloseButtonLocator).click();
             firstLoad = false;
         }
-
+        return this;
     }
 
     public String getTextOfCategoryLinkOfMainNews() {
@@ -77,12 +77,14 @@ public class NewsPage extends BasePage {
         return thirdArticleOfTimelineList.getText();
     }
 
-    public void executeSearchByKeyword(String keyword) {
+    public SearchResultPage executeSearchByKeyword(String keyword) {
         searchField.clear();
         searchField.sendKeys(keyword, Keys.RETURN);
+        return new SearchResultPage();
     }
 
-    public void goToCoronavirusPage() {
+    public CoronavirusPage goToCoronavirusPage() {
         coronavirusTab.click();
+        return new CoronavirusPage();
     }
 }

@@ -11,11 +11,13 @@ public class CoronavirusPage extends BasePage {
     @FindBy(xpath = "//h3[text()='How to share with BBC News']/ancestor::a")
     private WebElement shareTheNewsLink;
 
-    public void clickOnCoronavirusStoriesTab() {
+    public CoronavirusPage clickOnCoronavirusStoriesTab() {
         coronavirusStoriesTab.click();
+        return this;
     }
 
-    public void goToNewsSharePage() {
+    public ShareNewsPage goToShareSharePage() {
         shareTheNewsLink.click();
+        return new ShareNewsPage();
     }
 }

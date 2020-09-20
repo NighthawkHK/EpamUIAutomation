@@ -4,22 +4,21 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import pages.*;
-import flows.CommonFlows;
+import businessLayer.Flows;
 import utils.DriverSingleton;
 import utils.PropertyReader;
 
 public abstract class BaseTest {
 
     private static WebDriver driver;
-    protected CommonFlows steps;
+    protected Flows steps;
     private final String URL = PropertyReader.getUrl();
 
     @BeforeClass
     public void setUp() {
         driver = DriverSingleton.getDriver();
         driver.get(URL);
-        steps = new CommonFlows();
+        steps = new Flows();
     }
 
     @AfterClass
@@ -28,20 +27,7 @@ public abstract class BaseTest {
     }
 
     @AfterMethod
-    public void returnOnMainPage() {
+    public void backToMainPage() {
         driver.get(URL);
-    }
-
-
-    public HomePage getHomePage() {
-        return new HomePage();
-    }
-
-    public NewsPage getNewsPage() {
-        return new NewsPage();
-    }
-
-    public SearchResultPage getSearchResultPage() {
-        return new SearchResultPage();
     }
 }

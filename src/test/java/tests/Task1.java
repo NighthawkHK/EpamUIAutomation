@@ -1,6 +1,9 @@
 package tests;
 
 import org.testng.annotations.Test;
+import pages.HomePage;
+import pages.NewsPage;
+import pages.SearchResultPage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,27 +23,23 @@ public class Task1 extends BaseTest {
 
     @Test
     public void verifyThatNameOfHeadlineArticleEqualsToExpected() {
-        getHomePage().goToNewsPage();
-        
-        assertThat(getNewsPage().getTitleOfHeadlineArticle())
+        assertThat(new HomePage().goToNewsPage().getTitleOfHeadlineArticle())
                 .as("Actual and expected titles are different.")
                 .isEqualTo(EXPECTED_NAME_OF_HEADLINE_ARTICLE);
     }
 
     @Test
     public void verifyThatSecondaryArticleTitlesOfHeadlineListAreEqualToExpected() {
-        getHomePage().goToNewsPage();
-        assertThat(getNewsPage().getAllTitlesFromTimelineList().equals(EXPECTED_TITLES_OF_TIMELINE_LIST))
+        assertThat(new HomePage().goToNewsPage().getAllTitlesFromTimelineList().equals(EXPECTED_TITLES_OF_TIMELINE_LIST))
                 .as("One or more actual title does not match the expected.")
                 .isTrue();
     }
 
     @Test
     public void verifyThatNameOfTheFirstArticleContainsValue() {
-        getHomePage().goToNewsPage();
-        String textOfCategoryLinkOfMainNews = getNewsPage().getTextOfCategoryLinkOfMainNews();
-        getNewsPage().executeSearchByKeyword(textOfCategoryLinkOfMainNews);
-        assertThat(getSearchResultPage().getFirstArticleHeadline())
+        String textOfCategoryLinkOfMainNews = new HomePage().goToNewsPage().getTextOfCategoryLinkOfMainNews();
+        new NewsPage().executeSearchByKeyword(textOfCategoryLinkOfMainNews);
+        assertThat(new SearchResultPage().getFirstArticleHeadline())
                 .as("First article does not contain specified value.")
                 .contains(textOfCategoryLinkOfMainNews);
     }

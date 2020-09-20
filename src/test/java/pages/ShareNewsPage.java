@@ -26,38 +26,45 @@ public class ShareNewsPage extends BasePage {
     @FindBy(xpath = "//div[@class='embed-content-container']/div[8]/button")
     private WebElement submitButton;
 
-    public void typeQuestion(String question) {
+    public ShareNewsPage typeQuestion(String question) {
         textareaField.clear();
         textareaField.sendKeys(question);
+        return this;
     }
 
-    public void typeName(String name) {
+    public ShareNewsPage typeName(String name) {
         nameField.clear();
         nameField.sendKeys(name);
+        return this;
     }
 
-    public void typeEmail(String email) {
+    public ShareNewsPage typeEmail(String email) {
         emailField.clear();
         emailField.sendKeys(email);
+        return this;
     }
 
-    public void typeContactNumber(String contactNumber) {
+    public ShareNewsPage typeContactNumber(String contactNumber) {
         contactNumberField.click();
         contactNumberField.sendKeys(contactNumber);
+        return this;
     }
 
-    public void isAdultConfirmation(boolean isAdult) {
+    public ShareNewsPage isAdultConfirmation(boolean isAdult) {
         if (isAdult)
             isAdultCheckbox.click();
+        return this;
     }
 
-    public void acceptTermsConfirmation(boolean acceptTerms) {
+    public ShareNewsPage acceptTermsConfirmation(boolean acceptTerms) {
         if (acceptTerms)
             acceptTheTermsCheckbox.click();
+        return this;
     }
 
-    public void clickSubmitFormButton() {
+    public ShareNewsPage clickSubmitFormButton() {
         submitButton.click();
+        return this;
     }
 
     public boolean submitButtonIsDisplayed() {

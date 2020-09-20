@@ -22,10 +22,9 @@ public class Task2 extends BaseTest {
                                   boolean isAdult, boolean acceptTerms) {
 
         boolean questionWasSent = steps.navigateToNewsSharePage()
-                .fillRegistrationForm(question, name, email, contactNumber)
+                .fillForm(question, name, email, contactNumber)
                 .toggleCheckboxes(isAdult, acceptTerms)
                 .submitQuestion();
-
         assertThat(questionWasSent)
                 .as("Form was not sent.")
                 .isTrue();
