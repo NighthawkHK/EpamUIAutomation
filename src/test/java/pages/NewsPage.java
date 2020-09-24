@@ -2,12 +2,17 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static utils.DriverSingleton.getDriver;
 
 public class NewsPage extends BasePage {
 
@@ -38,9 +43,15 @@ public class NewsPage extends BasePage {
     private final By popupCloseButtonLocator = By.cssSelector("button.sign_in-exit");
     private static boolean firstLoad = true;
 
+    public NewsPage(WebDriver driver) {
+        super(driver);
+        PageFactory.initElements(this.driver, this);
+    }
+
     public NewsPage closeAuthorizationPopup() {
         if (firstLoad)
         {
+            WebDriverWait wait = initExplicitWait(5);
             wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(popupCloseButtonLocator)));
             driver.findElement(popupCloseButtonLocator).click();
             firstLoad = false;
@@ -80,11 +91,11 @@ public class NewsPage extends BasePage {
     public SearchResultPage executeSearchByKeyword(String keyword) {
         searchField.clear();
         searchField.sendKeys(keyword, Keys.RETURN);
-        return new SearchResultPage();
+        return new SearchResultPage(getDriver());
     }
 
     public CoronavirusPage goToCoronavirusPage() {
         coronavirusTab.click();
-        return new CoronavirusPage();
+        return new CoronavirusPage(getDriver());
     }
 }

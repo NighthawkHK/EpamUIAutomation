@@ -2,24 +2,23 @@ package pages;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import static utils.DriverSingleton.getDriver;
 
 public abstract class BasePage {
 
     protected WebDriver driver;
-    protected WebDriverWait wait;
 
-    public BasePage() {
-        driver = getDriver();
-        PageFactory.initElements(driver, this);
-        wait = new WebDriverWait(driver, 5);
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
     }
 
-    public void waitUntilPageIsComplete() {
-        new WebDriverWait(driver, 10)
+    public void waitUntilPageIsComplete(long TimeOut) {
+        new WebDriverWait(driver, TimeOut)
                 .until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+    }
+
+    public WebDriverWait initExplicitWait(long TimeOut) {
+        WebDriverWait wait = new WebDriverWait(driver, TimeOut);
+        return wait;
     }
 }

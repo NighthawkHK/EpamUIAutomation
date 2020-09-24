@@ -1,7 +1,11 @@
 package pages;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import static utils.DriverSingleton.getDriver;
 
 public class CoronavirusPage extends BasePage {
 
@@ -11,6 +15,11 @@ public class CoronavirusPage extends BasePage {
     @FindBy(xpath = "//h3[text()='How to share with BBC News']/ancestor::a")
     private WebElement shareTheNewsLink;
 
+    public CoronavirusPage(WebDriver driver) {
+        super(driver);
+        PageFactory.initElements(this.driver, this);
+    }
+
     public CoronavirusPage clickOnCoronavirusStoriesTab() {
         coronavirusStoriesTab.click();
         return this;
@@ -18,6 +27,6 @@ public class CoronavirusPage extends BasePage {
 
     public ShareNewsPage goToShareSharePage() {
         shareTheNewsLink.click();
-        return new ShareNewsPage();
+        return new ShareNewsPage(getDriver());
     }
 }

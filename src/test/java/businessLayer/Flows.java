@@ -2,12 +2,12 @@ package businessLayer;
 
 import pages.*;
 
+import static utils.DriverSingleton.getDriver;
+
 public class Flows {
 
-    private final ShareNewsPage shareNewsPage = new ShareNewsPage();
-
     public Flows navigateToNewsSharePage() {
-        new HomePage()
+        new HomePage(getDriver())
                 .goToNewsPage()
                 .closeAuthorizationPopup()
                 .goToCoronavirusPage()
@@ -17,7 +17,7 @@ public class Flows {
     }
 
     public Flows fillForm(String question, String name, String email, String contactNumber) {
-        new ShareNewsPage()
+        new ShareNewsPage(getDriver())
                 .typeQuestion(question)
                 .typeName(name)
                 .typeEmail(email)
@@ -26,15 +26,14 @@ public class Flows {
     }
 
     public Flows toggleCheckboxes(boolean isAdultCondition, boolean acceptTermsCondition) {
-        new ShareNewsPage()
+        new ShareNewsPage(getDriver())
                 .isAdultConfirmation(isAdultCondition)
                 .acceptTermsConfirmation(acceptTermsCondition);
         return this;
     }
 
     public boolean submitQuestion() {
-        new ShareNewsPage().clickSubmitFormButton();
-        return !shareNewsPage.submitButtonIsDisplayed(); // if submit button is displayed then the question was not sent
+        return new ShareNewsPage(getDriver()).clickSubmitFormButton().getFormState();
     }
 
 

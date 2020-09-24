@@ -11,14 +11,14 @@ import utils.PropertyReader;
 public abstract class BaseTest {
 
     private static WebDriver driver;
-    protected Flows steps;
+    protected Flows flow;
     private final String URL = PropertyReader.getUrl();
 
     @BeforeClass
     public void setUp() {
         driver = DriverSingleton.getDriver();
         driver.get(URL);
-        steps = new Flows();
+        flow = new Flows();
     }
 
     @AfterClass

@@ -1,7 +1,9 @@
 package pages;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class ShareNewsPage extends BasePage {
 
@@ -25,6 +27,11 @@ public class ShareNewsPage extends BasePage {
 
     @FindBy(xpath = "//div[@class='embed-content-container']/div[8]/button")
     private WebElement submitButton;
+
+    public ShareNewsPage(WebDriver driver) {
+        super(driver);
+        PageFactory.initElements(this.driver, this);
+    }
 
     public ShareNewsPage typeQuestion(String question) {
         textareaField.clear();
@@ -67,7 +74,7 @@ public class ShareNewsPage extends BasePage {
         return this;
     }
 
-    public boolean submitButtonIsDisplayed() {
-        return submitButton.isDisplayed();
+    public boolean getFormState() {
+        return submitButton.isDisplayed() ? false : true;
     }
 }

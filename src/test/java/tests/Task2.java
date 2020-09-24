@@ -10,10 +10,10 @@ public class Task2 extends BaseTest {
     @DataProvider(name = "formSubmission")
     public Object[][] formSubmission() {
         return new Object[][] {
-                {"Hello! I am a Trainee QA Automation and this message is a spam :)",
-                        "Test01", "example@gmail.com", "0123456789", true, false},
-                {"Hello!",
-                        "Test02", "example@gmail.com", "9876543210", false, true},
+                {"Hello! I am a Trainee QA Automation and this message is a spam :)", "Test01",
+                        "example@gmail.com", "0123456789", true, false},
+                {"Hello!", "Test02",
+                        "example@gmail.com", "9876543210", false, true},
         };
     }
 
@@ -21,7 +21,7 @@ public class Task2 extends BaseTest {
     public void sendQuestionToBBC(String question, String name, String email, String contactNumber,
                                   boolean isAdult, boolean acceptTerms) {
 
-        boolean questionWasSent = steps.navigateToNewsSharePage()
+        boolean questionWasSent = flow.navigateToNewsSharePage()
                 .fillForm(question, name, email, contactNumber)
                 .toggleCheckboxes(isAdult, acceptTerms)
                 .submitQuestion();
