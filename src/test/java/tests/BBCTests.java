@@ -22,23 +22,22 @@ public class BBCTests extends BaseTest {
 
     @Test
     public void verifyThatNameOfHeadlineArticleEqualsToExpected() {
-        String expectedNameOfHeadlineArticle = "New fear grips Europe as Covid tops 30m worldwide";
+        String EXPECTED_NAME_OF_HEADLINE_ARTICLE = "New fear grips Europe as Covid tops 30m worldwide";
 
         assertThat(homePage.goToNewsPage().getTitleOfHeadlineArticle())
                 .as("Actual and expected titles are different.")
-                .isEqualTo(expectedNameOfHeadlineArticle);
+                .isEqualTo(EXPECTED_NAME_OF_HEADLINE_ARTICLE);
     }
 
     @Test
     public void verifyThatSecondaryArticleTitlesOfHeadlineListAreEqualToExpected() {
-        List<String> expectedTitlesOfTimelineList = Arrays.asList(
+        List<String> EXPECTED_TITLES_OF_TIMELINE_LIST = Arrays.asList(
                 "Miss Sherlock actress Yuko Takeuchi found dead",
                 "US city warned over brain-eating microbe in water",
                 "Islamist militants kill 18 in north-eastern Nigeria",
-                "Britons 'bubbling out of pubs' since curfew"
-        );
+                "Britons 'bubbling out of pubs' since curfew");
 
-        assertThat(homePage.goToNewsPage().getTitles().equals(expectedTitlesOfTimelineList))
+        assertThat(homePage.goToNewsPage().getTitles().equals(EXPECTED_TITLES_OF_TIMELINE_LIST))
                 .as("One or more actual title does not match the expected.")
                 .isTrue();
     }
