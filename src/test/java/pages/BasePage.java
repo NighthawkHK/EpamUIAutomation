@@ -1,8 +1,11 @@
 package pages;
 
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 public abstract class BasePage {
 
@@ -12,13 +15,16 @@ public abstract class BasePage {
         this.driver = driver;
     }
 
-    public void waitUntilPageIsComplete(long TimeOut) {
-        new WebDriverWait(driver, TimeOut)
-                .until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-    }
-
     public WebDriverWait initExplicitWait(long TimeOut) {
         WebDriverWait wait = new WebDriverWait(driver, TimeOut);
         return wait;
+    }
+
+    public WebElement findElement(By by) {
+        return driver.findElement(by);
+    }
+
+    public List<WebElement> findElements(By by) {
+        return driver.findElements(by);
     }
 }

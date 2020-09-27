@@ -7,14 +7,17 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import static utils.DriverSingleton.getDriver;
 
 public class NewsPage extends BasePage {
+
+    private static boolean firstLoad = true;
+    private final By popupCloseButtonLocator = By.cssSelector("button.sign_in-exit");
+    private final By secondaryArticleTitleLocator = By.xpath("//div[contains(@class, 'top-stories__tertiary-top')]//h3");
 
     @FindBy(xpath = "//div[contains(@class,'primary__story')]//h3")
     private WebElement titleOfHeadlineArticle;
@@ -31,29 +34,15 @@ public class NewsPage extends BasePage {
     @FindBy(xpath = "//nav[@aria-label='news']//a[contains(@href, 'coronavirus')]")
     private WebElement coronavirusTab;
 
-    @FindBy(xpath = "//li[contains(@id, 'item--0')]//span[contains(@class, 'heading-text')]")
-    private WebElement firstArticleOfTimelineList;
-
-    @FindBy(xpath = "//li[contains(@id, 'item--1')]//span[contains(@class, 'heading-text')]")
-    private WebElement secondArticleOfTimelineList;
-
-    @FindBy(xpath = "//li[contains(@id, 'item--2')]//span[contains(@class, 'heading-text')]")
-    private WebElement thirdArticleOfTimelineList;
-
-    private final By popupCloseButtonLocator = By.cssSelector("button.sign_in-exit");
-    private static boolean firstLoad = true;
-
     public NewsPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(this.driver, this);
     }
 
     public NewsPage closeAuthorizationPopup() {
-        if (firstLoad)
-        {
-            WebDriverWait wait = initExplicitWait(5);
-            wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(popupCloseButtonLocator)));
-            driver.findElement(popupCloseButtonLocator).click();
+        if (firstLoad) {
+            WebElement popupCloseButton = findElement(popupCloseButtonLocator);
+            initExplicitWait(5).until(ExpectedConditions.elementToBeClickable(popupCloseButton)).click();
             firstLoad = false;
         }
         return this;
@@ -67,25 +56,14 @@ public class NewsPage extends BasePage {
         return titleOfHeadlineArticle.getText();
     }
 
-    public List<String> getAllTitlesFromTimelineList() {
-        List<String> allTitles = Arrays.asList(
-                getFirstArticleOfTimelineList(),
-                getSecondArticleOfTimelineList(),
-                getThirdArticleOfTimelineList()
-        );
-        return allTitles;
-    }
-
-    public String getFirstArticleOfTimelineList() {
-        return firstArticleOfTimelineList.getText();
-    }
-
-    public String getSecondArticleOfTimelineList() {
-        return secondArticleOfTimelineList.getText();
-    }
-
-    public String getThirdArticleOfTimelineList() {
-        return thirdArticleOfTimelineList.getText();
+    public List<String> getTitles() {
+        List<String> textTitles = new ArrayList<>();
+        List<WebElement> secondaryArticleTitles = findElements(secondaryArticleTitleLocator);
+        secondaryArticleTitles.remove(4);
+        for (WebElement we: secondaryArticleTitles) {
+            textTitles.add(we.getText());
+        }
+        return textTitles;
     }
 
     public SearchResultPage executeSearchByKeyword(String keyword) {

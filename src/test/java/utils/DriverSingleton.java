@@ -37,8 +37,16 @@ public class DriverSingleton {
                     break;
             }
             driver.manage().window().maximize();
+            driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
             driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         }
         return driver;
+    }
+
+    public static void quitDriver() {
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+        }
     }
 }
