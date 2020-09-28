@@ -17,7 +17,6 @@ public class NewsPage extends BasePage {
 
     private static boolean firstLoad = true;
     private final By popupCloseButtonLocator = By.cssSelector("button.sign_in-exit");
-    private final By secondaryArticleTitleLocator = By.xpath("//div[contains(@class, 'top-stories__tertiary-top')]//h3");
 
     @FindBy(xpath = "//div[contains(@class,'primary__story')]//h3")
     private WebElement titleOfHeadlineArticle;
@@ -33,6 +32,9 @@ public class NewsPage extends BasePage {
 
     @FindBy(xpath = "//nav[@aria-label='news']//a[contains(@href, 'coronavirus')]")
     private WebElement coronavirusTab;
+
+    @FindBy(xpath = "//ol[contains(@class, 'lx-c-timeline__list')]//span[contains(@class, 'heading-text')]")
+    private List<WebElement> titlesOfTimelineList;
 
     public NewsPage(WebDriver driver) {
         super(driver);
@@ -56,17 +58,15 @@ public class NewsPage extends BasePage {
         return titleOfHeadlineArticle.getText();
     }
 
-    public List<String> getTitles() {
-        List<String> textTitles = new ArrayList<>();
-        List<WebElement> secondaryArticleTitles = findElements(secondaryArticleTitleLocator);
-        secondaryArticleTitles.remove(4);
-        for (WebElement we: secondaryArticleTitles) {
-            textTitles.add(we.getText());
+    public List<String> getNewsTitlesOfTimelineList() {
+        List<String> textNewsTitles = new ArrayList<>();
+        for (WebElement we: titlesOfTimelineList) {
+            textNewsTitles.add(we.getText());
         }
-        return textTitles;
+        return textNewsTitles;
     }
 
-    public SearchResultPage executeSearchByKeyword(String keyword) {
+    public SearchResultPage searchByKeyword(String keyword) {
         searchField.clear();
         searchField.sendKeys(keyword, Keys.RETURN);
         return new SearchResultPage(getDriver());
