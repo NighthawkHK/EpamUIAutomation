@@ -53,11 +53,13 @@ public class BBCTests extends BaseTest {
 
     @Test
     public void sendQuestionToBBC() {
-        Map<String, String> testingData = new HashMap<>();
-        testingData.put("question", "Hi!");
-        testingData.put("name", "Test01");
-        testingData.put("email", "example@gmail.com");
-        testingData.put("phoneNumber", "0003338800");
+        Map<String, String> testingFormData = new HashMap<>();
+        testingFormData.put("question", "Hi!");
+        testingFormData.put("name", "Test01");
+        testingFormData.put("email", "example@gmail.com");
+        testingFormData.put("phoneNumber", "0003338800");
+        testingFormData.put("ageConfirmation", "true");
+        testingFormData.put("termsConfirmation", "true");
 
         ShareNewsPage shareNewsPage = new HomePage(getDriver())
                 .goToNewsPage()
@@ -65,8 +67,7 @@ public class BBCTests extends BaseTest {
                 .goToCoronavirusPage()
                 .clickOnCoronavirusStoriesTab()
                 .goToShareSharePage()
-                .fillForm(testingData)
-                .toggleCheckboxes(true, true)
+                .fillForm(testingFormData)
                 .submitForm();
 
         assertThat(shareNewsPage.verifyThatFormWasSent())

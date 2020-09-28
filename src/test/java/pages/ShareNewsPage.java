@@ -35,27 +35,33 @@ public class ShareNewsPage extends BasePage {
         PageFactory.initElements(this.driver, this);
     }
 
-    public ShareNewsPage fillForm(Map<String, String> formFields) {
+    public ShareNewsPage fillForm(Map<String, String> formData) {
 
-        if (formFields.containsKey("question"))
-            questionField.sendKeys(formFields.get("question"));
+        if (formData.containsKey("question"))
+            questionField.sendKeys(formData.get("question"));
 
-        if (formFields.containsKey("name"))
-            nameField.sendKeys(formFields.get("name"));
+        if (formData.containsKey("name"))
+            nameField.sendKeys(formData.get("name"));
 
-        if (formFields.containsKey("email"))
-            emailField.sendKeys(formFields.get("email"));
+        if (formData.containsKey("email"))
+            emailField.sendKeys(formData.get("email"));
 
-        if (formFields.containsKey("phoneNumber"))
-            contactNumberField.sendKeys(formFields.get("phoneNumber"));
-        return this;
-    }
+        if (formData.containsKey("phoneNumber"))
+            contactNumberField.sendKeys(formData.get("phoneNumber"));
 
-    public ShareNewsPage toggleCheckboxes(boolean ageConfirmation, boolean termsConfirmation) {
-        if (ageConfirmation)
-            isAdultCheckbox.click();
-        if (termsConfirmation)
-            acceptTheTermsCheckbox.click();
+        if (formData.containsKey("ageConfirmation")) {
+            String ageConfirmationText = formData.get("ageConfirmation");
+            boolean isAdult = Boolean.parseBoolean(ageConfirmationText);
+            if (isAdult)
+                isAdultCheckbox.click();
+        }
+
+        if (formData.containsKey("termsConfirmation")) {
+            String termsConfirmationText = formData.get("termsConfirmation");
+            boolean acceptTerms = Boolean.parseBoolean(termsConfirmationText);
+            if (acceptTerms)
+                acceptTheTermsCheckbox.click();
+        }
         return this;
     }
 
