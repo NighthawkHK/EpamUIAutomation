@@ -3,10 +3,8 @@ package tests;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,11 +21,10 @@ public class BBCTests extends BaseTest {
 
     @Test
     public void verifyThatSecondaryArticleTitlesOfHeadlineListAreEqualToExpected() {
-        final List<String> EXPECTED_TITLES_OF_TIMELINE_LIST = Arrays.asList(
-                "Another 4,044 new UK cases",
-                "US man given one year sentence for throwing parties",
-                "Scottish police break up 'at least' 300 house parties"
-        );
+        final ArrayList<String> EXPECTED_TITLES_OF_TIMELINE_LIST = new ArrayList<>();
+        EXPECTED_TITLES_OF_TIMELINE_LIST.add("Another 4,044 new UK cases");
+        EXPECTED_TITLES_OF_TIMELINE_LIST.add("US man given one year sentence for throwing parties");
+        EXPECTED_TITLES_OF_TIMELINE_LIST.add("Scottish police break up 'at least' 300 house parties");
 
         assertThat(steps.navigateToNewsPage().getNewsTitlesOfTimelineList())
                 .as("One or more news title does not match the expected.")
@@ -44,7 +41,7 @@ public class BBCTests extends BaseTest {
     }
 
     @Test(dataProvider = "formData")
-    public void sendQuestionToBBC(Map<String, String> formData) {
+    public void sendQuestionToBBC(HashMap<String, String> formData) {
         assertThat(steps.navigateToShareNewsPage()
                 .fillForm(formData)
                 .submitForm()
@@ -55,8 +52,8 @@ public class BBCTests extends BaseTest {
 
     @DataProvider
     public Object[][] formData() {
-        Map<String, String> validData = new HashMap<>();
-        Map<String, String> invalidData = new HashMap<>();
+        HashMap<String, String> validData = new HashMap<>();
+        HashMap<String, String> invalidData = new HashMap<>();
 
         validData.put("question", "Hi!");
         validData.put("name", "Test01");

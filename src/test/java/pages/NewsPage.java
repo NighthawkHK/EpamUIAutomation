@@ -56,8 +56,8 @@ public class NewsPage extends BasePage {
         return titleOfHeadlineArticle.getText();
     }
 
-    public List<String> getNewsTitlesOfTimelineList() {
-        List<String> textNewsTitles = new ArrayList<>();
+    public ArrayList<String> getNewsTitlesOfTimelineList() {
+        ArrayList<String> textNewsTitles = new ArrayList<>();
         for (WebElement we : titlesOfTimelineList) {
             textNewsTitles.add(we.getText());
         }

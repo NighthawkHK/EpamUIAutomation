@@ -13,6 +13,8 @@ public class DriverSingleton {
 
     private static WebDriver driver;
 
+    private DriverSingleton() { }
+
     public static WebDriver getDriver() {
 
         Browser browser = PropertyReader.getBrowser();
